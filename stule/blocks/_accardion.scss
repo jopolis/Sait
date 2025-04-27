@@ -1,0 +1,84 @@
+@use "../helpers" as *;
+
+.acordion{
+
+    &__summary{
+        color:var(--color-light);
+        list-style: none;
+
+        @include hover{
+            color:var(--color-accent)
+        }
+
+        &::-webkit-details-marker {
+            list-style: none;
+        }
+
+    }
+
+    &__content{
+        display: grid;
+        grid-template-rows: 0fr;
+        transition-duration: 0.3s;
+
+        &-inner {
+            overflow: hidden;
+        }
+        &-body{
+            --offsetTop: #{fluid(24,16)};
+            margin-top: var(--offsetTop);
+            padding-top: var(--offsetTop);
+            border-top: var(--border);
+        }
+
+    }
+
+    &__title {
+        position: relative;
+        padding-right: rem(50);
+        transition-duration: var(--transition-duration);
+        color: inherit;
+
+        &::before,
+        &::after{
+            @include abs-y;
+            content: '';
+            right: 0;
+            width: rem(16);
+            background-color: var(--color-accent);
+            transition-duration: var(--transition-duration);
+            border-radius: rem(1);
+            height: rem(2);
+        }
+
+        &::after{
+            rotate: 90deg;
+        }
+           
+    }
+
+    &__details{       
+        &[open]{
+            .acordion__title{
+                &::after,
+                &::before{
+                    background-color:var(--color-light) ;
+                    rotate: 0deg;
+                }
+               
+            }
+
+            & + .acordion__content {
+                grid-template-rows: 1fr;
+            }
+        }
+
+        @include laptop {
+            row-gap: rem(20);
+        }
+    
+        @include mobile {
+            row-gap: rem(26);
+        }
+    }
+}

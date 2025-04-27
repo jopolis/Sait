@@ -1,0 +1,78 @@
+@use "../helpers" as *;
+
+.metrics{
+
+    --colums: 3;
+
+    &--4--cols{
+        --colums: 4;
+        text-align: center;
+
+        @include tablet-above {
+            .metrics__item:nth-child(4n){
+                padding-right: 0;
+            }
+        }
+
+
+        @include tablet {
+            --colums: 2;
+            .metrics__item {
+                @include full-vw-centered-line(bottom);
+                &:nth-child(odd){
+                    padding-left: 0;
+                    
+                    
+                }
+                &:nth-child(even){
+                    padding-right: 0;
+                    border-right: none;
+                    
+                }
+
+            }
+
+        }
+        
+    }
+
+    &__list{
+        display: grid;
+        grid-template-columns: repeat(var(--colums),1fr);
+
+    }
+
+    &__item{
+        display: flex;
+        flex-direction: column-reverse;
+        row-gap: rem(10);
+        padding: rem(50);
+
+        @include laptop{
+            padding: rem(40) rem(30);
+            row-gap: rem(2);
+        }
+
+        @include tablet{
+            row-gap: rem(0);
+            padding: rem(20);
+        }
+
+        &:first-child {
+            padding-left: 0;
+        }
+
+        &:not(:last-child){
+            border-right: var(--border);
+        }
+
+    }
+
+    &__value{
+        font-weight: 600;
+    }
+
+    &__sign {
+        color: var(--color-accent);
+    }
+}

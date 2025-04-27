@@ -1,0 +1,135 @@
+@use "../helpers" as *;
+
+.bordered-grid{
+    --colums: 1;
+    --itemPadingY: #{fluid(80,40)};
+    
+
+    display: grid;
+    grid-template-columns: repeat(var(--colums), 1fr);
+
+    &--2--cols {
+        --colums: 2;
+        --itemPadingX: #{rem(80)};
+
+        @include laptop {
+            --itemPadingX: #{rem(50)};
+        }
+
+        @include mobile {
+            --colums: 1;
+            .bordered-grid__item:not(:last-child){
+                border-bottom: var(--border);
+            }
+            
+        }
+
+        @include mobile-above {
+            .bordered-grid__item{
+                &:nth-child(odd){
+                    padding-right: var(--itemPadingX);
+                    border-right: var(--border);
+                }
+            }
+    
+            .bordered-grid__item{
+                &:nth-child(even){
+                    @include full-vw-centered-line (bottom ,auto, 100%, 50%);
+                    padding-left: var(--itemPadingX);
+                }
+            }
+        }
+
+    }
+
+    &--3--cols {
+        --colums: 3;
+        --itemPadingX: #{rem(50)};
+        column-gap: calc(var( --itemPadingX) * 2);        
+        
+        @include laptop {
+            --itemPadingX: #{rem(40)};            
+        }
+
+        @include tablet {
+            --colums: 1;
+            .bordered-grid__item:not(:last-child){
+                border-bottom: var(--border);
+            }
+        }
+
+        @include tablet-above {
+            .bordered-grid__item {
+                &:nth-child(3n - 2),
+                &:nth-child(3n - 1){
+                    position: relative;
+                    &::after{
+                        content: "";
+                        position: absolute;
+                        top: 0;
+                        left: calc(100% + var(--itemPadingX));                        
+                        width: rem(1);
+                        height: 100%;
+                        background-color: var(--color-dark-15);
+                    }
+                }
+    
+                &:nth-child(3n-1){
+                    @include full-vw-centered-line(bottom)
+                }
+            }
+        }
+    }
+
+    &--4--cols {
+        --colums: 4;
+        --itemPadingX: #{rem(50)};
+        column-gap: calc(var( --itemPadingX) * 2);   
+        
+        
+        
+        @include laptop {
+            --itemPadingX: #{rem(30)};            
+        }
+
+        @include tablet {
+            --colums: 2;
+        }
+
+        @include mobile {
+            --colums: 1;
+            .bordered-grid__item:not(:last-child){
+                border-bottom: var(--border);
+            }
+        }
+
+        @include tablet-above {
+            
+            .bordered-grid__item {
+                &:nth-child(4n - 3),
+                &:nth-child(4n - 2),
+                &:nth-child(4n - 1){
+                    position: relative;
+                    &::after{
+                        content: "";
+                        position: absolute;
+                        top: 0;
+                        left: calc(100% + var(--itemPadingX));                        
+                        width: rem(1);
+                        height: 100%;
+                        background-color: var(--color-dark-15);
+                    }
+                }
+    
+                &:nth-child(3n-1){
+                    @include full-vw-centered-line(bottom)
+                }
+            }
+        }
+    }
+
+    &__item{
+        padding-block: var(--itemPadingY);
+
+    }
+}

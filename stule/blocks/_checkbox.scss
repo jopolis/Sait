@@ -1,0 +1,55 @@
+@use "../helpers" as *;
+
+.checkbox{
+    display: inline-flex;
+    align-items: center;
+    column-gap: rem(10);
+    color: var(--color-light);
+
+    @include laptop {
+        column-gap: rem(6);
+    }
+
+
+    @include hover {
+        color: var(--color-accent);
+
+        .checkbox__input{
+            border-color: var(--color-accent);
+        }
+       
+    }
+
+    &__input{
+        --size: #{rem(28)};
+
+        @include square(var(--size));
+        @include flex-center;
+
+        margin: 0;
+        border-radius: rem(4);
+        border: var(--border);
+        appearance: none;
+        background-color: var(--color-dark-10);
+
+        &:not(:checked){
+            &::after {
+                @include hide;
+            }
+        }
+
+        &::after {
+            content: "🍺";
+            
+            transition-duration: var(--transition-duration);
+            border-radius: rem(4);
+        }
+
+        @include laptop {
+            --size: #{rem(24)};
+        }
+    
+    }
+    
+
+}
